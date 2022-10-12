@@ -1,7 +1,11 @@
 {
-  "name": "y",
+  "name": "testtask",
   "version": "1.0.0",
   "private": true,
+  "author": {
+    "name": "Dmitriy Nevgod",
+    "email": "nevgod.dm@gmail.com"
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
@@ -30,6 +34,8 @@
     "eslint-plugin-nuxt": "^4.0.0",
     "eslint-plugin-vue": "^9.5.1",
     "postcss": "^8.4.17",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "sass": "^1.55.0",
+    "sass-loader": "^10.3.1"
   }
 }

@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'y',
+    title: 'TESTTASK',
     htmlAttrs: {
       lang: 'en',
     },
@@ -18,7 +18,46 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ['~/assets/scss/index.scss'],
+
+  // Tailwindcss config
+  tailwindcss: {
+    exposeConfig: false,
+    viewer: true,
+    config: {
+      theme: {
+        container: {
+          padding: {
+            DEFAULT: '16px',
+            sm: '16px',
+            lg: '32px',
+            xl: '60px',
+            '2xl': '120px',
+          },
+        },
+        colors: {
+          black: 'hsla(0, 0%, 0%, 0.87)',
+          primary: '#F4E041',
+          secondary: '#00BDD3',
+          background: '#F8F8F8',
+          danger: '#CB3D40',
+          white: '#FFFFFF',
+          grey: {
+            100: '#D0CFCF',
+            300: '#B4B4B4',
+            400: '#7E7E7E',
+          },
+        },
+        fontFamily: {
+          sans: ['Nunito', 'sans-serif'],
+        },
+        fontSize: {
+          base: ['16px', '26px'],
+          title: ['40px', '40px'],
+        },
+      },
+    },
+  },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
