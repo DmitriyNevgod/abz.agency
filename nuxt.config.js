@@ -14,7 +14,10 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -37,15 +40,18 @@ export default {
         },
         colors: {
           black: 'hsla(0, 0%, 0%, 0.87)',
-          primary: '#F4E041',
+          primary: {
+            100: '#F4E041',
+            200: '#FFE302',
+          },
           secondary: '#00BDD3',
           background: '#F8F8F8',
           danger: '#CB3D40',
           white: '#FFFFFF',
           grey: {
             100: '#D0CFCF',
-            300: '#B4B4B4',
-            400: '#7E7E7E',
+            200: '#B4B4B4',
+            300: '#7E7E7E',
           },
         },
         fontFamily: {
@@ -60,10 +66,12 @@ export default {
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/tippy.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: {
+    dirs: ['~/components', '~/components/main/', '~/components/base/'],
+  },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -82,9 +90,11 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: process.env.API_URL,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    analyze: true,
+  },
 }
