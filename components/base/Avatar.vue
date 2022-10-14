@@ -8,15 +8,6 @@
       alt="Avatar"
       class="w-[70px] h-[70px] rounded-full"
     />
-
-    <!-- No avatar -->
-    <img
-      v-else-if="src === ''"
-      src="~/assets/img/no-avatar.svg"
-      :title="title"
-      alt="No avatar"
-      class="w-[70px] h-[70px]"
-    />
   </div>
 </template>
 
@@ -50,7 +41,7 @@ export default {
         this.src = url
       }
       img.onerror = () => {
-        this.src = ''
+        this.src = require('~/assets/img/no-avatar.svg')
       }
       img.src = url
     },
