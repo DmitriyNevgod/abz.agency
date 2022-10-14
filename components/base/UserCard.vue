@@ -8,11 +8,17 @@
           v-if="p.isTruncate"
           v-tippy
           :content="p.value"
-          class="block truncate"
+          :class="idx === 0 ? 'py-[20px]' : ''"
+          class="block truncate text-base"
         >
           {{ p.value }}
         </span>
-        <span v-else class="block">{{ p.value }}</span>
+        <span
+          v-else
+          class="block text-base"
+          :class="idx === 0 ? 'py-[20px]' : ''"
+          >{{ p.value }}</span
+        >
       </div>
     </div>
   </div>
@@ -57,16 +63,11 @@ export default {
   beforeDestroy() {
     window.removeEventListener('resize', this.updatedTrunscate)
   },
-  updated() {
-    // this.updatedTrunscate()
-  },
   methods: {
     updatedTrunscate() {
       this.userProps = []
-      const pushProp = (value) => {
-        console.log('maxLength', this.maxLength)
-        console.log('String(value).lenght', value.toString().length)
-        this.userProps.push({
+      const pushProp = (value, idx) => {
+        this.userProps.splice(idx, 0, {
           isTruncate: !(String(value).length < this.maxLength),
           value,
         })
@@ -75,16 +76,16 @@ export default {
         const value = this.user[key]
         switch (key) {
           case 'name':
-            pushProp(value)
+            pushProp(value, 0)
             break
           case 'position':
-            pushProp(value)
+            pushProp(value, 1)
             break
           case 'email':
-            pushProp(value)
+            pushProp(value, 2)
             break
           case 'phone':
-            pushProp(value)
+            pushProp(value, 3)
             break
         }
       }
