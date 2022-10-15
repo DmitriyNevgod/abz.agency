@@ -8,7 +8,6 @@
         : 'text-black bg-primary-200 hover:bg-primary-100'
     "
     :disabled="disabled"
-    v-bind="$attrs"
     v-on="$listeners"
   >
     <slot></slot>
