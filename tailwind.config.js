@@ -38,6 +38,7 @@ module.exports = {
         sans: ['Nunito', 'sans-serif'],
       },
       fontSize: {
+        sm: ['12px', '14px'],
         base: ['16px', '26px'],
         title: ['40px', '40px'],
       },
