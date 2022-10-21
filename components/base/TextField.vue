@@ -15,8 +15,10 @@
       :type="type"
       :disabled="disabled"
       :placeholder="isFocus ? placeholder : ''"
-      class="px-[16px] py-[14px] text-base text-black border border-grey-300 focus:outline-none rounded-[4px] !bg-transparent w-full autofill"
+      :minlength="min"
+      :maxlength="max"
       :class="{ 'border-danger': !isValid }"
+      class="px-[16px] py-[14px] text-base text-black border border-grey-100 border-solid focus:outline-none rounded-[4px] !bg-transparent w-full autofill"
       @input="$emit('input', $event.target.value, $event)"
       @focus="isFocus = true"
       @blur="
@@ -24,10 +26,15 @@
         validatorHandler()
       "
     />
-    <div class="mt-[4px] pl-[16px] text-sm">
+    <div
+      class="pl-[16px] text-sm absolute pt-[4px]"
+      :class="{ hidden: helperText }"
+    >
       <slot name="helperText"></slot>
     </div>
-    <div class="mt-[4px] pl-[16px] text-sm text-danger flex flex-col">
+    <div
+      class="bg-background pl-[16px] pt-[4px] text-sm text-danger flex flex-col absolute"
+    >
       <span v-for="(m, idx) in errorMessages" :key="idx">{{ m }}</span>
     </div>
   </div>
@@ -45,6 +52,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    min: {
+      type: Number,
+      default: 3,
+    },
+    max: {
+      type: Number,
+      default: 100,
+    },
     placeholder: {
       type: String,
       default: '',
@@ -55,6 +70,7 @@ export default {
     },
     name: {
       type: String,
+      required: true,
       default: '',
     },
     mask: {
@@ -104,6 +120,9 @@ export default {
     }
   },
   computed: {
+    helperText() {
+      return !this.$slots.helperText
+    },
     labelClassList() {
       const сlassList = []
       if (this.isFocus || this.value) {
@@ -127,9 +146,14 @@ export default {
     },
     validatorHandler() {
       this.errorMessages = []
+      const isMinLength = this.min < this.value.toString().length
+      if (!isMinLength) {
+        this.errorMessages.push(`Min length is ${this.min} characters`)
+      }
+
       if (Array.isArray(this.validator)) {
         const data = this.validator.map((f) => f())
-        this.isValid = data.every((i) => {
+        const valid = data.every((i) => {
           if (!i.valid) {
             this.errorMessages.push(i.errorMessage)
             return false
@@ -137,11 +161,13 @@ export default {
             return true
           }
         })
+        this.isValid = valid && isMinLength
       } else {
         const { valid, errorMessage } = this.validator()
-        this.isValid = valid
-        this.errorMessages = [errorMessage]
+        this.isValid = valid && isMinLength
+        this.errorMessages.push(errorMessage)
       }
+      this.$emit('isValid', { name: this.name, valid: this.isValid })
     },
   },
 }
