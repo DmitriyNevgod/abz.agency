@@ -1,10 +1,15 @@
 <template>
   <div class="mt-[140px] pb-[100px] container mx-auto">
-    <h2 class="text-title text-center">Working with POST request</h2>
+    <h2 class="text-title text-center">
+      {{
+        success ? 'User successfully registered' : 'Working with POST request'
+      }}
+    </h2>
 
     <form
+      v-if="!success"
       class="flex flex-col mt-[50px] max-w-[380px] mx-auto"
-      @submit.prevent="null"
+      @submit.prevent="sendData"
     >
       <!-- Name -->
       <TextField
@@ -13,6 +18,7 @@
         placeholder="Enter name"
         label="Name"
         name="name"
+        :disabled="formDisabled"
         :validator="nameValidator"
         :min="2"
         :max="60"
@@ -27,6 +33,7 @@
         label="Email"
         name="email"
         class="mt-[50px]"
+        :disabled="formDisabled"
         :validator="emailValidator"
         :min="2"
         :max="100"
@@ -42,6 +49,7 @@
         label="Phone"
         name="phone"
         class="mt-[50px]"
+        :disabled="formDisabled"
         :validator="phoneValidator"
         @isValid="isValidHandler"
       >
@@ -53,15 +61,25 @@
       <!-- RadioBoxes -->
       <div class="mt-[43px]">
         <div class="text-base mb-1">Select your position</div>
-        <RadioGroup v-model="radio" default-first :list="radioList" />
+        <RadioGroup
+          v-if="positions && positions.length"
+          v-model="radio"
+          default-first
+          :disabled="formDisabled"
+          :list="radioList"
+        />
+        <span v-else class="pl-[16px] pt-[4px] text-sm text-danger">
+          Positions not found
+        </span>
       </div>
 
       <!-- Upload -->
       <div class="my-[50px]">
         <UploadInput
           accept=".jpeg, .jpg"
+          :disabled="formDisabled"
           :max-size="5242880"
-          @file="photoValidator"
+          @file="fileHandler"
           @isEmpty="fileIsEmptyHandler"
         />
         <div
@@ -70,11 +88,29 @@
           <span v-for="(m, idx) in errorMessages" :key="idx">{{ m }}</span>
         </div>
       </div>
+
+      <!-- Submit -->
       <div class="mx-auto flex justify-center">
         <Preloder v-if="loading" />
-        <Button v-else :disabled="!formValid" @click="submit">Sign up</Button>
+        <Button v-else :disabled="!formValid" @click="sendData">Sign up</Button>
+      </div>
+
+      <!-- Error -->
+      <div
+        v-if="formError"
+        class="pl-[16px] mt-[10px] mx-auto text-sm text-danger"
+      >
+        {{ formError }}
       </div>
     </form>
+
+    <div v-else>
+      <img
+        class="mt-[50px] mx-auto"
+        src="~/assets/img/success.svg"
+        alt="Success"
+      />
+    </div>
   </div>
 </template>
 
@@ -84,6 +120,10 @@ export default {
   props: {
     positions: {
       type: Array,
+      default: null,
+    },
+    token: {
+      type: String,
       default: null,
     },
   },
@@ -101,8 +141,11 @@ export default {
         { input: 'phone', valid: false },
         { input: 'photo', valid: false },
       ],
+      formDisabled: false,
       formValid: false,
-      loading: null,
+      loading: false,
+      success: false,
+      formError: null,
     }
   },
 
@@ -193,6 +236,7 @@ export default {
     },
     fileHandler(file) {
       this.file = file
+      this.photoValidator(file)
     },
     isValidHandler(e) {
       this.inputNames = this.inputNames.map((i) => {
@@ -204,8 +248,39 @@ export default {
       this.formValid = this.inputNames.every((i) => i.valid)
     },
 
-    submit() {
-      // console.log('submit')
+    async sendData() {
+      this.formError = null
+      this.loading = true
+      this.formDisabled = true
+      const phone = this.phone.replace(/[^+\d]/g, '')
+      const formData = new FormData()
+
+      formData.append('name', this.name)
+      formData.append('email', this.email)
+      formData.append('phone', phone)
+      formData.append('position_id', this.radio)
+      formData.append('photo', this.file)
+
+      await this.$axios
+        .post('/users', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Token: this.token,
+          },
+        })
+        .then((res) => {
+          this.$emit('submit', true)
+          this.success = true
+        })
+        .catch((error) => {
+          this.$emit('submit', false)
+          this.formError =
+            error?.response?.data?.message || 'Failed to submit form'
+        })
+        .finally(() => {
+          this.loading = false
+          this.formDisabled = false
+        })
     },
   },
 }

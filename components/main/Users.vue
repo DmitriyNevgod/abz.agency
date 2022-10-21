@@ -39,6 +39,11 @@ export default {
       isLimit: false,
     }
   },
+  watch: {
+    users(value) {
+      this.localUsers = value
+    },
+  },
   methods: {
     async loadMore() {
       this.loading = true
