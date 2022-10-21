@@ -46,7 +46,7 @@
         @isValid="isValidHandler"
       >
         <template #helperText>
-          <span class="text-grey-300">+38 (0XX) XXX - XX - XX</span>
+          <span class="text-gray-300">+38 (0XX) XXX - XX - XX</span>
         </template>
       </TextField>
 
@@ -72,9 +72,7 @@
       </div>
       <div class="mx-auto flex justify-center">
         <Preloder v-if="loading" />
-        <Button v-else class="w-[120px]" :disabled="!formValid" @click="submit">
-          Submit
-        </Button>
+        <Button v-else :disabled="!formValid" @click="submit">Sign up</Button>
       </div>
     </form>
   </div>

@@ -18,7 +18,7 @@
       :minlength="min"
       :maxlength="max"
       :class="{ 'border-danger': !isValid }"
-      class="px-[16px] py-[14px] text-base text-black border border-grey-100 border-solid focus:outline-none rounded-[4px] !bg-transparent w-full autofill"
+      class="px-[16px] py-[14px] text-base text-black border border-gray-100 border-solid focus:outline-none rounded-[4px] !bg-transparent w-full autofill"
       @input="$emit('input', $event.target.value, $event)"
       @focus="isFocus = true"
       @blur="
@@ -135,7 +135,7 @@ export default {
         )
       }
       this.isValid
-        ? сlassList.push('text-grey-300')
+        ? сlassList.push('text-gray-300')
         : сlassList.push('text-danger')
       return сlassList.join(' ')
     },
