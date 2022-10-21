@@ -1,16 +1,23 @@
 <template>
   <div class="relative h-[54px]">
     <div
-      class="bg-transparent select-none cursor-pointer w-full flex h-full"
+      class="bg-transparent select-none w-full flex h-full"
+      :class="{ 'cursor-pointer': !disabled }"
       @click="$refs.file.click()"
     >
       <div
-        class="px-[15px] py-[14px] text-base border border-solid border-black text-black rounded-l-[4px]"
+        class="px-[15px] py-[14px] text-base border border-solid rounded-l-[4px]"
+        :class="
+          disabled
+            ? 'border-gray-100 text-gray-100'
+            : 'border-black text-black '
+        "
       >
         Upload
       </div>
       <div
-        class="px-[16px] py-[14px] w-full text-base truncate border border-solid text-grey-300 border-grey-100 border-l-0 rounded-r-[4px]"
+        class="px-[16px] py-[14px] w-full text-base truncate border border-solid border-gray-100 border-l-0 rounded-r-[4px]"
+        :class="disabled ? 'text-gray-100' : 'text-gray-300'"
       >
         <template v-if="fileName">
           {{ fileName }}
@@ -28,6 +35,7 @@
       type="file"
       class="invisible h-0"
       :accept="accept"
+      :disabled="disabled"
       @input="fileHandler"
     />
   </div>
@@ -55,6 +63,10 @@ export default {
             : false
         }
       },
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
     maxSize: {
       type: Number,

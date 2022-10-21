@@ -3,24 +3,30 @@
     <div
       v-for="i in localList"
       :key="i.value"
-      class="flex select-none cursor-pointer w-max items-center"
+      class="flex select-none w-max items-center"
+      :class="{ 'cursor-pointer': !disabled }"
       @click="inputHandler(i)"
     >
       <div
-        class="relative cursor-pointer rounded-full border border-solid border-grey-100 w-[20px] h-[20px]"
+        class="relative rounded-full border border-solid border-gray-100 w-[20px] h-[20px] before:content-[''] before:block before:absolute before:h-[10px] before:w-[10px] before:top-[4px] before:left-[4.5px] before:rounded-full"
         :class="
-          i.checked
-            ? `border-secondary before:content-[''] before:block before:absolute before:h-[10px] before:w-[10px] before:bg-secondary before:top-[4px] before:left-[4.5px] before:rounded-full`
+          i.checked && !disabled
+            ? 'border-secondary before:bg-secondary cursor-pointer'
+            : i.checked && disabled
+            ? 'border-gray-100  before:bg-gray-200'
             : ''
         "
       ></div>
       <input
         class="invisible"
         type="radio"
+        :disabled="disabled"
         :value="i.inputValue"
         :checked="i.checked"
       />
-      <label class="cursor-pointer text-base">{{ i.label }}</label>
+      <label class="text-base" :class="{ 'cursor-pointer': !disabled }">
+        {{ i.label }}
+      </label>
     </div>
   </div>
 </template>
@@ -28,7 +34,6 @@
 <script>
 export default {
   name: 'NuxtRadioGroup',
-
   props: {
     value: {
       type: [String, Number],
@@ -63,6 +68,10 @@ export default {
         }
       },
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -82,6 +91,8 @@ export default {
   },
   methods: {
     inputHandler(e) {
+      if (this.disabled) return
+
       this.localList = this.list.map((i) => {
         i.checked = !!(i.value === e.value)
         return i
