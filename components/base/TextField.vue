@@ -146,7 +146,7 @@ export default {
     },
     validatorHandler() {
       this.errorMessages = []
-      const isMinLength = this.min < this.value.toString().length
+      const isMinLength = this.min < this.value?.toString()?.length
       if (!isMinLength) {
         this.errorMessages.push(`Min length is ${this.min} characters`)
       }
