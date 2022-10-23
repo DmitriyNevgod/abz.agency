@@ -7,8 +7,9 @@ Vue.use(VueTippy, {
   animation: 'shift-toward',
   followCursor: true,
   flipOnUpdate: true,
+  inlinePositioning: true,
   maxWidth: 'auto',
-  placement: 'bottom-end',
+  placement: 'auto',
   offset: '-20, 0',
   distance: 25,
   popperOptions: {

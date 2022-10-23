@@ -59,7 +59,7 @@ export default {
       } else if (windowWidth >= Number.parseInt(breakpoints.xl)) {
         return 35
       } else if (windowWidth >= Number.parseInt(breakpoints.md)) {
-        return 30
+        return 32
       } else {
         return 25
       }
