@@ -3,7 +3,7 @@
     <Preloder v-if="src === null" />
     <img
       v-if="url && src"
-      :src="url"
+      :src="src"
       :title="title"
       :width="width"
       :height="height"
