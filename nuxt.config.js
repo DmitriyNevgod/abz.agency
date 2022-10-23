@@ -2,7 +2,6 @@
 module.exports = {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'server',
-
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'TESTTASK',
@@ -59,8 +58,6 @@ module.exports = {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
-    // https://image.nuxtjs.org/
-    '@nuxt/image',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

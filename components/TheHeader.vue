@@ -2,7 +2,7 @@
   <header class="bg-white">
     <div class="container mx-auto py-[13px] flex justify-between">
       <nuxt-link to="/" aria-label="homeLink" class="flex item-center">
-        <NuxtImg src="/logo.svg" alt="Logo" :width="105" :height="25" />
+        <img src="~/assets/img/logo.svg" alt="Logo" :width="105" :height="25" />
       </nuxt-link>
       <div>
         <Button class="mr-[10px]">

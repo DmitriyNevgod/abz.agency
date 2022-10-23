@@ -91,7 +91,7 @@
 
       <!-- Submit -->
       <div class="mx-auto flex justify-center">
-        <Preloder v-if="loading" />
+        <Preloder v-if="loading" class="w-[50px] h-[50px]" />
         <Button v-else :disabled="!formValid" @click="sendData">Sign up</Button>
       </div>
 

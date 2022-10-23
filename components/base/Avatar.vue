@@ -1,14 +1,13 @@
 <template>
   <div :style="`width: ${width}px; height: ${height}px`">
     <Preloder v-if="src === null" />
-    <NuxtImg
+    <img
       v-if="url && src"
       :src="url"
       :title="title"
       :width="width"
       :height="height"
       alt="Avatar"
-      format="webp"
       class="rounded-full"
     />
   </div>

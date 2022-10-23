@@ -10,7 +10,7 @@
 
       <!-- show more -->
       <div class="mt-[50px] mx-auto flex justify-center">
-        <Preloder v-if="loading" />
+        <Preloder v-if="loading" class="w-[50px] h-[50px]" />
         <Button v-else-if="!isLimit" class="w-[120px]" @click="loadMore">
           Show more
         </Button>
