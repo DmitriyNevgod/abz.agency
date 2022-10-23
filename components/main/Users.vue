@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-[140px] container mx-auto text-center">
+  <div id="users" class="mt-[140px] container mx-auto text-center">
     <h2 class="text-title text-center mb-[50px]">Working with GET request</h2>
 
     <template v-if="users">

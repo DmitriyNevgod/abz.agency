@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-[140px] pb-[100px] container mx-auto">
+  <div id="sign" class="mt-[140px] pb-[100px] container mx-auto">
     <h2 class="text-title text-center">
       {{
         success ? 'User successfully registered' : 'Working with POST request'

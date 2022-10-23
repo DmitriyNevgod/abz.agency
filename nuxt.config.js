@@ -1,6 +1,6 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  target: 'static',
+  target: 'server',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -11,7 +11,12 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'Test task for abz.agency from Dmitry Nevgod for the position of front-end developer',
+      },
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [
@@ -22,6 +27,10 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['~/assets/scss/index.scss'],
+
+  image: {
+    dir: 'assets/img',
+  },
 
   // Tailwindcss config
   tailwindcss: {
@@ -49,6 +58,8 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    // https://image.nuxtjs.org/
+    '@nuxt/image',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -59,6 +70,6 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    analyze: true,
+    extractCss: true,
   },
 }

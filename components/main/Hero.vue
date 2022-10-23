@@ -3,7 +3,7 @@
     <div
       class="flex flex-col items-center justify-center text-white bg-[url('~/assets/img/hero-bg.jpeg')] bg-cover bg-no-repeat bg-center h-[80vh] hero"
     >
-      <div class="text-center w-[380px] z-10">
+      <div class="text-center w-[100%] sm:w-[380px] z-10">
         <h1 class="text-title mb-[21px]">
           Test assignment for front-end developer
         </h1>

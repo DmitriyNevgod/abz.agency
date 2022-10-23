@@ -1,12 +1,15 @@
 <template>
-  <div class="w-[70px] h-[70px]">
-    <Preloder v-if="src === null" class="pt-[18px] w-[70px] h-[70px]" />
-    <img
+  <div :style="`width: ${width}px; height: ${height}px`">
+    <Preloder v-if="src === null" />
+    <NuxtImg
       v-if="url && src"
-      :src="src"
+      :src="url"
       :title="title"
+      :width="width"
+      :height="height"
       alt="Avatar"
-      class="w-[70px] h-[70px] rounded-full"
+      format="webp"
+      class="rounded-full"
     />
   </div>
 </template>
@@ -23,6 +26,14 @@ export default {
     title: {
       type: String,
       default: '',
+    },
+    width: {
+      type: Number,
+      default: 70,
+    },
+    height: {
+      type: Number,
+      default: 70,
     },
   },
   data() {

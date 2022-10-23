@@ -8,7 +8,7 @@
       @click="inputHandler(i)"
     >
       <div
-        class="relative rounded-full border border-solid border-gray-100 w-[20px] h-[20px] before:content-[''] before:block before:absolute before:h-[10px] before:w-[10px] before:top-[4px] before:left-[4.5px] before:rounded-full"
+        class="box-content relative rounded-full border border-solid border-gray-100 w-[20px] h-[20px] before:content-[''] before:block before:absolute before:h-[10px] before:w-[10px] before:top-[5px] before:left-[5px] before:rounded-full"
         :class="
           i.checked && !disabled
             ? 'border-secondary before:bg-secondary cursor-pointer'

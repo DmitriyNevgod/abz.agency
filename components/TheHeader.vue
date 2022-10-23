@@ -1,13 +1,17 @@
 <template>
   <header class="bg-white">
     <div class="container mx-auto py-[13px] flex justify-between">
-      <a href="/" aria-label="homeLink">
-        <div>
-          <img src="~/assets/img/logo.svg" alt="Logo" />
-        </div>
-      </a>
+      <nuxt-link to="/" aria-label="homeLink" class="flex item-center">
+        <NuxtImg src="/logo.svg" alt="Logo" :width="105" :height="25" />
+      </nuxt-link>
       <div>
-        <Button class="mr-[10px]">Users</Button><Button>Sign up</Button>
+        <Button class="mr-[10px]">
+          <nuxt-link :to="{ path: '/', hash: '#users' }">
+            Users
+          </nuxt-link> </Button
+        ><Button>
+          <nuxt-link :to="{ path: '/', hash: '#sign' }"> Sign up </nuxt-link>
+        </Button>
       </div>
     </div>
   </header>

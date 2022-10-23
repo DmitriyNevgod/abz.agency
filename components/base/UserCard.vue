@@ -1,25 +1,34 @@
 <template>
   <div ref="name" class="bg-white rounded-[10px] p-[20px] text-center">
     <Avatar class="mx-auto" :url="user.photo" :title="user.name" />
-    <!-- <h3 class="my-[20px] truncate">{{ user.name }}</h3> -->
     <div class="w-auto mx-auto">
-      <div v-for="(p, idx) in userProps" :key="idx" class="mx-auto">
-        <span
-          v-if="p.isTruncate"
-          v-tippy
-          :content="p.value"
-          :class="idx === 0 ? 'py-[20px]' : ''"
-          class="block truncate text-base"
-        >
-          {{ p.value }}
+      <template v-if="user && !userProps">
+        <span class="block truncate text-base py-[20px]">{{ user.name }}</span>
+        <span class="block truncate text-base">
+          {{ user.position }}
         </span>
-        <span
-          v-else
-          class="block text-base"
-          :class="idx === 0 ? 'py-[20px]' : ''"
-          >{{ p.value }}</span
-        >
-      </div>
+        <span class="block truncate text-base">{{ user.email }}</span>
+        <span class="block truncate text-base">{{ user.phone }}</span>
+      </template>
+      <template v-else>
+        <div v-for="(p, idx) in userProps" :key="idx" class="mx-auto">
+          <span
+            v-if="p.isTruncate"
+            v-tippy
+            :content="p.value"
+            :class="idx === 0 ? 'py-[20px]' : ''"
+            class="block truncate text-base"
+          >
+            {{ p.value }}
+          </span>
+          <span
+            v-else
+            class="block text-base"
+            :class="idx === 0 ? 'py-[20px]' : ''"
+            >{{ p.value }}</span
+          >
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -32,12 +41,12 @@ export default {
   props: {
     user: {
       type: Object,
-      default: () => {},
+      default: null,
     },
   },
   data() {
     return {
-      userProps: [],
+      userProps: null,
     }
   },
   computed: {
