@@ -11,33 +11,32 @@ const defaultUsers = '/users?page=1&count=6'
 
 export default {
   name: 'IndexPage',
-  data() {
-    return {
-      users: null,
-      positions: null,
-      token: null,
-    }
-  },
-  async mounted() {
-    await Promise.allSettled([
-      this.$axios.get(defaultUsers),
-      this.$axios.get('/positions'),
-      this.$axios.get('/token'),
-    ]).then((res) => {
-      res.forEach((i) => {
-        if (i.status === 'fulfilled') {
-          if (i.value.data.users) {
-            this.users = i.value.data.users
+  async asyncData({ $axios }) {
+    const data = { users: null, positions: null, token: null }
+    try {
+      await Promise.allSettled([
+        $axios.get(defaultUsers),
+        $axios.get('/positions'),
+        $axios.get('/token'),
+      ]).then((res) => {
+        res.forEach((i) => {
+          if (i.status === 'fulfilled') {
+            if (i.value.data.users) {
+              data.users = i.value.data.users
+            }
+            if (i.value.data.positions) {
+              data.positions = i.value.data.positions
+            }
+            if (i.value.data.token) {
+              data.token = i.value.data.token
+            }
           }
-          if (i.value.data.positions) {
-            this.positions = i.value.data.positions
-          }
-          if (i.value.data.token) {
-            this.token = i.value.data.token
-          }
-        }
+        })
       })
-    })
+      return data
+    } catch (e) {
+      return data
+    }
   },
   methods: {
     async getUsers(state) {
