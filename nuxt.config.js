@@ -29,10 +29,6 @@ module.exports = {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['~/assets/scss/index.scss'],
 
-  image: {
-    dir: 'assets/img',
-  },
-
   // Tailwindcss config
   tailwindcss: {
     viewer: true,
@@ -70,5 +66,9 @@ module.exports = {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extractCss: true,
+  },
+
+  server: {
+    port: process.env.PORT || 8000,
   },
 }
